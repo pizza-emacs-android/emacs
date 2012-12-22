@@ -1,3 +1,28 @@
+2012-08-01  Glenn Morris  <rgm@gnu.org>
+
+	* progmodes/autoconf.el (autoconf-definition-regexp):
+	Add AH_TEMPLATE, adjust submatch numbering.
+	(autoconf-font-lock-keywords, autoconf-imenu-generic-expression)
+	(autoconf-current-defun-function): Update for above change.
+	(autoconf-current-defun-function): First skip to end of current word.
+
+2012-08-01  Rupert Swarbrick  <rswarbrick@gmail.com>  (tiny change)
+
+	* calendar/cal-html.el (cal-html-insert-agenda-days):
+	Fix typo.  (Bug#12018)
+
+2012-07-31  Fabián Ezequiel Gallina  <fgallina@cuca>
+
+	Shell processes: enhancements to startup and CEDET compatibility.
+	* progmodes/python.el (python-shell-send-setup-max-wait): Delete var.
+	(python-shell-make-comint): accept-process-output at startup.
+	(run-python-internal): Set inferior-python-mode-hook to nil.
+	(python-shell-internal-get-or-create-process): call sit-for.
+	(python-preoutput-result): Add obsolete alias.
+	(python-shell-internal-send-string): Use it.
+	(python-shell-send-setup-code): Remove call to
+	accept-process-output.
+
 2012-07-31  Andreas Schwab  <schwab@linux-m68k.org>
 
 	* buff-menu.el (list-buffers-noselect): Use prefix-numeric-value.
@@ -63,7 +88,7 @@
 	* calc/calc-ext.el (calc-init-extensions): Remove binding for
 	`calc-alg-simplify-mode'.  Add binding for `calc-lim-simplify-mode'.
 
-	* calc/calc-help (calc-m-prefix-help): Change messages to
+	* calc/calc-help.el (calc-m-prefix-help): Change messages to
 	indicate new simplification modes.
 
 	* calc/README: Mention new default simplification mode.

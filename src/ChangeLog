@@ -1,4 +1,60 @@
+2012-08-01  Dmitry Antipov  <dmantipov@yandex.ru>
+
+	Use INTERNAL_FIELD for conses and overlays.
+	* lisp.h (struct Lisp_Cons): Use INTERNAL_FIELD.
+	Remove obsolete comment.
+	(MVAR): New macro.
+	(struct Lisp_Overlay): Use INTERNAL_FIELD.
+	* alloc.c, buffer.c, buffer.h, fns.c: Adjust users.
+
+2012-08-01  Dmitry Antipov  <dmantipov@yandex.ru>
+
+	Use INTERNAL_FIELD for symbols.
+	* lisp.h (SVAR): New macro.  Adjust users.
+	* alloc.c, bytecode.c, cmds.c, data.c, doc.c, eval.c:
+	* fns.c, keyboard.c, lread.c, xterm.c: Users changed.
+
+2012-08-01  Dmitry Antipov  <dmantipov@yandex.ru>
+
+	Use INTERNAL_FIELD for processes.
+	* process.h (PVAR): New macro.  Adjust style.
+	(struct Lisp_Process): Change Lisp_Object members to INTERNAL_FIELD.
+	* print.c, process.c, sysdep.c, w32.c, xdisp.c: Users changed.
+
+2012-08-01  Dmitry Antipov  <dmantipov@yandex.ru>
+
+	Use INTERNAL_FIELD for windows.
+	* window.h (WVAR): New macro.
+	(struct window): Change Lisp_Object members to INTERNAL_FIELD.
+	* alloc.c, buffer.c, composite.c, dispextern.h, dispnew.c, editfns.c:
+	* fileio.c, font.c, fontset.c, frame.c, frame.h, fringe.c, indent.c:
+	* insdel.c, keyboard.c, keymap.c, lisp.h, minibuf.c, nsterm.m, print.c:
+	* textprop.c, w32fns.c, w32menu.c, w32term.c, window.c, xdisp.c:
+	* xfaces.c, xfns.c, xmenu.c, xterm.c: Users changed.
+
+2012-08-01  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* coding.h (CODING_ATTR_FLUSHING): Remove; unused and wouldn't work.
+
+2012-08-01  Glenn Morris  <rgm@gnu.org>
+
+	* lisp.h (IS_DIRECTORY_SEP, IS_DEVICE_SEP, IS_ANY_SEP):
+	Move to configure.ac.
+
+2012-08-01  Juanma Barranquero  <lekktu@gmail.com>
+
+	* makefile.w32-in (CONFIG_H): Update dependencies.
+	(CONF_POST_H): New macro.
+
+	* s/ms-w32.h (SEPCHAR, NULL_DEVICE): Remove; moved to nt/config.nt.
+
 2012-07-31  Glenn Morris  <rgm@gnu.org>
+
+	* Makefile.in (S_FILE): No longer set by configure.
+
+	* conf_post.h (config_opsysfile): Move earlier, so that WINDOWSNT
+	is available.
+	(alloca.h) [WINDOWSNT]: Don't include it on MS Windows.
 
 	* process.h (NULL_DEVICE):
 	* emacs.c (SEPCHAR):
@@ -29,7 +85,7 @@
 	instead of compositeToPoint.
 	(applicationShouldTerminate): Pass NS String literal to NSRunAlertPanel.
 
-	*  nsfns.m, nsmenu.m, msterm.m: Adopt to struct frame/FVAR changes.
+	* nsfns.m, nsmenu.m, nsterm.m: Adopt to struct frame/FVAR changes.
 
 2012-07-31  Dmitry Antipov  <dmantipov@yandex.ru>
 
@@ -41,9 +97,9 @@
 	(KVAR): Change to use INTERNAL_FIELD.
 	* frame.h (FVAR): New macro.
 	(struct frame): Use INTERNAL_FIELD for all Lisp_Object fields.
-	* alloc.c, buffer.c, data.c, dispnew.c, dosfns.c, eval.c, frame.c
-	* fringe.c, gtkutil.c, minibuf.c, nsfns.m, nsterm.m, print.c
-	* term.c, w32fns.c, w32menu.c, w32term.c, window.c, window.h,
+	* alloc.c, buffer.c, data.c, dispnew.c, dosfns.c, eval.c, frame.c:
+	* fringe.c, gtkutil.c, minibuf.c, nsfns.m, nsterm.m, print.c:
+	* term.c, w32fns.c, w32menu.c, w32term.c, window.c, window.h:
 	* xdisp.c, xfaces.c, xfns.c, xmenu.c, xterm.c: Users changed.
 
 2012-07-31  Dmitry Antipov  <dmantipov@yandex.ru>
@@ -1059,7 +1115,7 @@
 
 2012-07-13  Glenn Morris  <rgm@gnu.org>
 
-	* s/bsd-common, s/cygwin.h: Remove empty files.
+	* s/bsd-common.h, s/cygwin.h: Remove empty files.
 	* s/freebsd.h, s/netbsd.h: Do not include bsd-common.h.
 
 	* s/usg5-4-common.h (USG, USG5):

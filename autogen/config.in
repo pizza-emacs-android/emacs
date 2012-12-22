@@ -31,6 +31,10 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 /* Define if building universal (internal helper macro) */
 #undef AC_APPLE_UNIVERSAL_BUILD
 
+/* Define to use the convention that & in the full name stands for the login
+   id. */
+#undef AMPERSAND_FULL_NAME
+
 /* Define to the number of bits in type 'ptrdiff_t'. */
 #undef BITSIZEOF_PTRDIFF_T
 
@@ -113,6 +117,9 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 /* Name of the default sound device. */
 #undef DEFAULT_SOUND_DEVICE
 
+/* Character that separates a device in a file name. */
+#undef DEVICE_SEP
+
 /* Define to 1 for DGUX with <sys/dg_sys_info.h>. */
 #undef DGUX
 
@@ -137,6 +144,10 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 /* Letter to use in finding device name of first PTY, if PTYs are supported.
    */
 #undef FIRST_PTY_LETTER
+
+/* Define if the float library doesn't handle errors by either setting errno,
+   or signaling SIGFPE/SIGILL. */
+#undef FLOAT_CHECK_DOMAIN
 
 /* Define to 1 if futimesat mishandles a NULL file name. */
 #undef FUTIMESAT_NULL_BUG
@@ -509,6 +520,9 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
+
+/* Define if you have the functions acosh, asinh, and atanh. */
+#undef HAVE_INVERSE_HYPERBOLIC
 
 /* Define to 1 if you have the jpeg library (-ljpeg). */
 #undef HAVE_JPEG
@@ -1087,11 +1101,23 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 /* Define if the system is HPUX. */
 #undef HPUX
 
+/* This is substituted when $TERM is "internal". */
+#undef INTERNAL_TERMINAL
+
 /* Define to read input using SIGIO. */
 #undef INTERRUPT_INPUT
 
 /* Define if the system is IRIX. */
 #undef IRIX6_5
+
+/* Returns true if character is any form of separator. */
+#undef IS_ANY_SEP
+
+/* Returns true if character is a device separator. */
+#undef IS_DEVICE_SEP
+
+/* Returns true if character is a directory separator. */
+#undef IS_DIRECTORY_SEP
 
 /* Define to support Kerberos-authenticated POP mail retrieval. */
 #undef KERBEROS
@@ -1154,6 +1180,9 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* Define to 1 if you are using NS windowing under GNUstep. */
 #undef NS_IMPL_GNUSTEP
+
+/* Name of the file to open to get a null file, or a data sink. */
+#undef NULL_DEVICE
 
 /* Define to 1 if the nlist n_name member is a pointer */
 #undef N_NAME_POINTER
@@ -1236,6 +1265,9 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* Define if emacs.c needs to call run_time_remap; for HPUX. */
 #undef RUN_TIME_REMAP
+
+/* Character that separates PATH elements. */
+#undef SEPCHAR
 
 /* Define if process.c:child_setup should not call setpgrp. */
 #undef SETPGRP_RELEASES_CTTY
@@ -1320,6 +1352,9 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* Define if the system has Unix98 PTYs. */
 #undef UNIX98_PTYS
+
+/* How to get a user's full name. */
+#undef USER_FULL_NAME
 
 /* Define to 1 if using GTK. */
 #undef USE_GTK
@@ -1491,7 +1526,8 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 /* Some platforms redefine this. */
 #undef _setjmp
 
-/* Define to the used os dependent file. */
+/* Some platforms that do not use configure define this to include extra
+   configuration information. */
 #undef config_opsysfile
 
 /* A replacement for va_copy, if needed.  */
@@ -1556,6 +1592,9 @@ along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.  */
 
 /* Define as a signed type of the same size as size_t. */
 #undef ssize_t
+
+/* Define to enable asynchronous subprocesses. */
+#undef subprocesses
 
 /* Define to any substitute for sys_siglist. */
 #undef sys_siglist

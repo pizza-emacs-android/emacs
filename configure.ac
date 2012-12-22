@@ -982,8 +982,8 @@ case $opsys in
     START_FILES='pre-crt0.o'
     ;;
   freebsd )
-    LIB_STANDARD='-lgcc -lc -lgcc $(CRT_DIR)/crtend.o $(CRT_DIR)/crtn.o'
-    START_FILES='pre-crt0.o $(CRT_DIR)/crt1.o $(CRT_DIR)/crti.o $(CRT_DIR)/crtbegin.o'
+    LIB_STANDARD='-lgcc -lc -lgcc $(CRT_DIR)/crtn.o'
+    START_FILES='pre-crt0.o $(CRT_DIR)/crt1.o $(CRT_DIR)/crti.o'
     SYSTEM_TYPE=berkeley-unix
     ;;
   gnu-linux | gnu-kfreebsd )
@@ -3136,6 +3136,12 @@ AC_DEFINE(CLASH_DETECTION, 1, [Define if you want lock files to be written,
   so that Emacs can tell instantly when you try to modify a file that
   someone else has modified in his/her Emacs.])
 
+AH_TEMPLATE(FLOAT_CHECK_DOMAIN, [Define if the float library doesn't
+  handle errors by either setting errno, or signaling SIGFPE/SIGILL.])
+
+AH_TEMPLATE(HAVE_INVERSE_HYPERBOLIC, [Define if you have the functions
+  acosh, asinh, and atanh.])
+
 dnl Everybody supports this, except MS.
 dnl Seems like the kind of thing we should be testing for, though.
 ## Note: PTYs are broken on darwin <6.  Use at your own risk.
@@ -3147,6 +3153,8 @@ dnl Compare with HAVE_INET_SOCKETS (which is unused...) above.
 AC_DEFINE(HAVE_SOCKETS, 1, [Define if the system supports
   4.2-compatible sockets.])
 
+AH_TEMPLATE(INTERNAL_TERMINAL, [This is substituted when $TERM is "internal".])
+
 AC_DEFINE(NULL_DEVICE, ["/dev/null"], [Name of the file to open to get
   a null file, or a data sink.])
 
@@ -3156,6 +3164,20 @@ dnl Everybody supports this, except MS-DOS.
 AC_DEFINE(subprocesses, 1, [Define to enable asynchronous subprocesses.])
 
 AC_DEFINE(USER_FULL_NAME, [pw->pw_gecos], [How to get a user's full name.])
+
+
+dnl Only used on MS platforms.
+AH_TEMPLATE(DEVICE_SEP, [Character that separates a device in a file name.])
+
+AC_DEFINE(IS_DEVICE_SEP(_c_), 0,
+  [Returns true if character is a device separator.])
+
+AC_DEFINE(IS_DIRECTORY_SEP(_c_), [((_c_) == DIRECTORY_SEP)],
+  [Returns true if character is a directory separator.])
+
+dnl On MS, this also accepts IS_DEVICE_SEP.
+AC_DEFINE(IS_ANY_SEP(_c_), [(IS_DIRECTORY_SEP (_c_))],
+  [Returns true if character is any form of separator.])
 
 
 AH_TEMPLATE(NO_EDITRES, [Define if XEditRes should not be used.])
@@ -3876,8 +3898,6 @@ AC_SUBST(GNUSTEP_CFLAGS)
 AC_SUBST(CFLAGS)
 ## Used in lwlib/Makefile.in.
 AC_SUBST(X_TOOLKIT_TYPE)
-S_FILE=
-AC_SUBST(S_FILE)
 AC_SUBST(ns_appdir)
 AC_SUBST(ns_appbindir)
 AC_SUBST(ns_appresdir)
@@ -3889,9 +3909,8 @@ AC_DEFINE_UNQUOTED(EMACS_CONFIGURATION,  "${canonical}",
 		   [Define to the canonical Emacs configuration name.])
 AC_DEFINE_UNQUOTED(EMACS_CONFIG_OPTIONS, "${ac_configure_args}",
 		   [Define to the options passed to configure.])
-if test -z "No longer used"; then
-  AC_DEFINE(config_opsysfile, [], [Define to the used os dependent file.])
-fi
+AH_TEMPLATE(config_opsysfile, [Some platforms that do not use configure
+  define this to include extra configuration information.])
 
 XMENU_OBJ=
 XOBJ=
